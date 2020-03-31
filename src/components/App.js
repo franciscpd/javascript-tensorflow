@@ -1,6 +1,6 @@
 /* eslint-disable react/no-array-index-key */
 import React, { useState, Suspense } from 'react';
-import { Loader } from 'rsuite';
+import { Loader, FlexboxGrid } from 'rsuite';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
 import Navbar from '@components/Layout/Navbar';
@@ -20,17 +20,21 @@ function App() {
         activeKey={activeKey}
         onSelect={handleSelect}
       />
-      <BrowserRouter>
-        <Suspense
-          fallback={<Loader backdrop content="carregando..." vertical />}
-        >
-          <Switch>
-            {routes.map((route, i) => (
-              <Route key={i} {...route} />
-            ))}
-          </Switch>
-        </Suspense>
-      </BrowserRouter>
+      <FlexboxGrid style={{ maxWidth: 1366, margin: '25px auto', padding: 25 }}>
+        <FlexboxGrid.Item colspan={24}>
+          <BrowserRouter>
+            <Suspense
+              fallback={<Loader backdrop content="carregando..." vertical />}
+            >
+              <Switch>
+                {routes.map((route, i) => (
+                  <Route key={i} {...route} />
+                ))}
+              </Switch>
+            </Suspense>
+          </BrowserRouter>
+        </FlexboxGrid.Item>
+      </FlexboxGrid>
     </>
   );
 }
