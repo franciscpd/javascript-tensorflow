@@ -5,7 +5,7 @@ const Home = () => {
   const [result, setResult] = useState('');
 
   return (
-    <FlexboxGrid style={{ maxWidth: 1366, margin: '25px auto' }}>
+    <FlexboxGrid style={{ maxWidth: 1366, margin: '25px auto', padding: 25 }}>
       <FlexboxGrid.Item colspan={24}>
         <h1>Inteligência artificial com JavaScript e TensorFlow.js</h1>
         <span>TensorFlow</span>
