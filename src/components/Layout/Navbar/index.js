@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useHistory, Link, useLocation } from 'react-router-dom';
-import { Navbar as NavBase, Nav, Icon, Dropdown } from 'rsuite';
+import { Navbar as NavBase, Icon, Dropdown } from 'rsuite';
+import Nav from '@rsuite/responsive-nav';
 import routes from '@shared/data/routes';
 
 const CustomLink = React.forwardRef((props, ref) => (
