@@ -4,6 +4,7 @@ const Home = lazy(() => import('@view/Home'));
 const Dimensionality = lazy(() =>
   import('@view/TensorConstruct/Dimensionality')
 );
+const Typing = lazy(() => import('@view/TensorConstruct/Typing'));
 
 export default [
   {
@@ -23,6 +24,12 @@ export default [
         exact: true,
         component: Dimensionality,
         label: 'Dimensionalidade',
+      },
+      {
+        path: '/typing',
+        exact: true,
+        component: Typing,
+        label: 'Tipagem',
       },
     ],
   },
