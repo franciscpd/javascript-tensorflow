@@ -5,6 +5,7 @@ const Dimensionality = lazy(() =>
   import('@view/TensorConstruct/Dimensionality')
 );
 const Typing = lazy(() => import('@view/TensorConstruct/Typing'));
+const Default = lazy(() => import('@view/TensorConstruct/Default'));
 
 export default [
   {
@@ -30,6 +31,12 @@ export default [
         exact: true,
         component: Typing,
         label: 'Tipagem',
+      },
+      {
+        path: '/default',
+        exact: true,
+        component: Default,
+        label: 'Tensor Padrão',
       },
     ],
   },
