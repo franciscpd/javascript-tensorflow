@@ -62,9 +62,6 @@ const Navbar = props => {
             );
           })}
         </Nav>
-        <Nav pullRight>
-          <Nav.Item icon={<Icon icon="cog" />}>Configurações</Nav.Item>
-        </Nav>
       </NavBase.Body>
     </NavBase>
   );
