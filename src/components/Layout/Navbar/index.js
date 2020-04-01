@@ -1,43 +1,73 @@
-/* eslint-disable jsx-a11y/anchor-is-valid */
-import React from 'react';
-import PropTypes from 'prop-types';
-import { Navbar as NavBase, Nav, Icon } from 'rsuite';
+import React, { useState, useEffect } from 'react';
+import { useHistory, Link, useLocation } from 'react-router-dom';
+import { Navbar as NavBase, Nav, Icon, Dropdown } from 'rsuite';
+import routes from '@shared/data/routes';
 
-const Navbar = ({ onSelect, activeKey, ...props }) => (
-  <NavBase {...props}>
-    <NavBase.Header>
-      <h5
-        style={{
-          padding: '15px 20px',
-          display: 'inline-block',
-        }}
-      >
-        Tensor Flow
-      </h5>
-    </NavBase.Header>
-    <NavBase.Body>
-      <Nav onSelect={onSelect} activeKey={activeKey}>
-        <Nav.Item eventKey="1" icon={<Icon icon="home" />}>
-          Home
-        </Nav.Item>
-        <Nav.Item eventKey="2">News</Nav.Item>
-        <Nav.Item eventKey="3">Products</Nav.Item>
-      </Nav>
-      <Nav pullRight>
-        <Nav.Item icon={<Icon icon="cog" />}>Configurações</Nav.Item>
-      </Nav>
-    </NavBase.Body>
-  </NavBase>
-);
+const CustomLink = React.forwardRef((props, ref) => (
+  // @ts-ignore
+  <Link className="rs-nav-item-content" ref={ref} {...props} />
+));
 
-Navbar.propTypes = {
-  onSelect: PropTypes.func,
-  activeKey: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-};
+const NavLink = props => <Nav.Item componentClass={CustomLink} {...props} />;
 
-Navbar.defaultProps = {
-  onSelect: () => {},
-  activeKey: null,
+const Navbar = props => {
+  const [activeKey, setActiveKey] = useState('');
+
+  const history = useHistory();
+  const location = useLocation();
+
+  useEffect(() => setActiveKey(location.pathname), [location.pathname]);
+
+  return (
+    <NavBase {...props}>
+      <NavBase.Header>
+        <h5
+          style={{
+            padding: '15px 20px',
+            display: 'inline-block',
+          }}
+        >
+          Tensor Flow
+        </h5>
+      </NavBase.Header>
+      <NavBase.Body>
+        <Nav activeKey={activeKey}>
+          {routes.map((route, idx) => {
+            if (route.children) {
+              return (
+                <Dropdown title={route.label} key={idx}>
+                  {route.children.map((r, i) => (
+                    <Dropdown.Item
+                      key={i}
+                      onSelect={() => history.push(`${route.path}${r.path}`)}
+                      eventKey={`${route.path}${r.path}`}
+                    >
+                      {r.label}
+                    </Dropdown.Item>
+                  ))}
+                </Dropdown>
+              );
+            }
+            // @ts-ignore
+            return (
+              <NavLink
+                // @ts-ignore
+                icon={route.icon ? <Icon icon={route.icon} /> : null}
+                to={route.path}
+                key={idx}
+                eventKey={route.path}
+              >
+                {route.label}
+              </NavLink>
+            );
+          })}
+        </Nav>
+        <Nav pullRight>
+          <Nav.Item icon={<Icon icon="cog" />}>Configurações</Nav.Item>
+        </Nav>
+      </NavBase.Body>
+    </NavBase>
+  );
 };
 
 export default Navbar;
