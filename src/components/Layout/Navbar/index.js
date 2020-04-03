@@ -36,12 +36,19 @@ const Navbar = props => {
           {routes.map((route, idx) => {
             if (route.children) {
               return (
-                <Dropdown title={route.label} key={idx}>
+                <Dropdown
+                  title={route.label}
+                  key={idx}
+                  trigger="hover"
+                  // @ts-ignore
+                  icon={route.icon ? <Icon icon={route.icon} /> : null}
+                >
                   {route.children.map((r, i) => (
                     <Dropdown.Item
                       key={i}
                       onSelect={() => history.push(`${route.path}${r.path}`)}
                       eventKey={`${route.path}${r.path}`}
+                      icon={route.icon ? <Icon icon={r.icon} /> : null}
                     >
                       {r.label}
                     </Dropdown.Item>

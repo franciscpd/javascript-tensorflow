@@ -1,11 +1,15 @@
 import { lazy } from 'react';
 
 const Home = lazy(() => import('@view/Home'));
+// TensorConstruct
 const Dimensionality = lazy(() =>
   import('@view/TensorConstruct/Dimensionality')
 );
 const Typing = lazy(() => import('@view/TensorConstruct/Typing'));
 const Default = lazy(() => import('@view/TensorConstruct/Default'));
+
+// FunctionsConstruct
+const Fill = lazy(() => import('@view/FunctionsConstruct/Fill'));
 
 export default [
   {
@@ -16,7 +20,6 @@ export default [
     label: 'Home',
   },
   {
-    icon: '',
     label: 'Construção do tensor',
     path: '/tensor-construct',
     children: [
@@ -37,6 +40,18 @@ export default [
         exact: true,
         component: Default,
         label: 'Tensor Padrão',
+      },
+    ],
+  },
+  {
+    label: 'Funções de criação',
+    path: '/functions-construct',
+    children: [
+      {
+        path: '/fill',
+        exact: true,
+        component: Fill,
+        label: 'Fill',
       },
     ],
   },
